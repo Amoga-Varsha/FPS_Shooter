@@ -14,8 +14,7 @@ public class PlayerWeaponHandler : MonoBehaviour
     {
         currentWeapon = weapon;
         animator.avatar = weapon.weaponAvatar;
-        animator.runtimeAnimatorController = weapon.overrideController;
-
+        animator.runtimeAnimatorController = weapon.weaponOverrideController;
         Debug.Log("Equipped: " + weapon.weaponName);
     }
 }

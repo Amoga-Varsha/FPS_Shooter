@@ -2,42 +2,51 @@ using UnityEngine;
 
 public class WeaponPickup : MonoBehaviour
 {
-    public GameObject weaponPrefab;
-
-    private bool isPlayerInRange = false;
-    private Transform playerWeaponHolder;
+    public float pickupRange = 2f;
+    public Animator playerAnimator; // Reference to player's Animator
+    private string currentWeaponName = "Unarmed";
 
     void Update()
     {
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, pickupRange))
         {
-            PickupWeapon();
+            if (hit.collider.CompareTag("Weapon"))
+            {
+                Debug.Log("Weapon Detected: " + hit.collider.name);
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    PickupWeapon(hit.collider.gameObject);
+                }
+            }
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void PickupWeapon(GameObject weaponObject)
     {
-        if (other.CompareTag("Player"))
+        WeaponHolder holder = weaponObject.GetComponent<WeaponHolder>();
+        if (holder != null && holder.weaponData != null)
         {
-            isPlayerInRange = true;
-            playerWeaponHolder = other.transform.Find("WeaponHolder");
-        }
-    }
+            // ✅ Set Avatar
+            playerAnimator.avatar = holder.weaponData.weaponAvatar;
 
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
+            // ✅ Set RuntimeAnimatorController (Override Controller)
+            playerAnimator.runtimeAnimatorController = holder.weaponData.weaponOverrideController;
+
+            // Update current weapon name
+            currentWeaponName = holder.weaponData.weaponName;
+
+            Debug.Log("Picked up weapon: " + currentWeaponName);
+
+            // Destroy the weapon in the world
+            Destroy(weaponObject);
+        }
+        else
         {
-            isPlayerInRange = false;
+            Debug.LogWarning("No WeaponData assigned on this weapon!");
         }
-    }
-
-    void PickupWeapon()
-    {
-        if (playerWeaponHolder == null) return;
-
-        GameObject pickedWeapon = Instantiate(weaponPrefab, playerWeaponHolder.position, playerWeaponHolder.rotation);
-        pickedWeapon.transform.SetParent(playerWeaponHolder);
-        Destroy(gameObject); 
     }
 }

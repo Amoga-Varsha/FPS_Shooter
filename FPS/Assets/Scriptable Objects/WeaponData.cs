@@ -1,13 +1,9 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewWeapon", menuName = "Weapons/WeaponData")]
+[CreateAssetMenu(fileName = "New Weapon", menuName = "Weapon Data")]
 public class WeaponData : ScriptableObject
 {
     public string weaponName;
     public Avatar weaponAvatar;
-    public AnimatorOverrideController overrideController;
-    //public Sprite weaponIcon;
-    public int damage;
-    public float fireRate;
-    // Add other things like ammo, etc.
+    public RuntimeAnimatorController weaponOverrideController; // <- Important
 }

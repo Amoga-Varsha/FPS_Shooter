@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef66803b03478bb4493107311a0bcf3e, type: 3}
-  m_Name: Unarmed
+  m_Name: AKM
   m_EditorClassIdentifier: 
-  weaponName: Unarmed
-  weaponAvatar: {fileID: 9000000, guid: afd3d430d22650b4795b5159d7dd53d6, type: 3}
-  weaponOverrideController: {fileID: 22100000, guid: b91e2dc64a1d2a940b2877d41199a43e,
+  weaponName: AKM
+  weaponAvatar: {fileID: 9000000, guid: aebc5757cb26e464e8a59137dbdc17c8, type: 3}
+  weaponOverrideController: {fileID: 22100000, guid: ff9618db04d775246b5001faa936c5d4,
     type: 2}
