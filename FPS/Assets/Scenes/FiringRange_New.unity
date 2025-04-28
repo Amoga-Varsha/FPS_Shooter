@@ -5937,6 +5937,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 360284529}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &370979195 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3985589424221609849, guid: 20ce86f0ddf7cd1438b1f6d3006b3862,
+    type: 3}
+  m_PrefabInstance: {fileID: 9030392322807714279}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &378966039 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2935862199484239672, guid: 1a744bcc5da016f4db9f1a7b7a2cd28b,
@@ -10164,6 +10170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupRange: 2
   playerAnimator: {fileID: 1865324270}
+  weaponHolderTransform: {fileID: 370979195}
 --- !u!1001 &632615444
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11406,27 +11413,6 @@ MonoBehaviour:
   standingHeight: 2
   playerCamera: {fileID: 1988133874}
   mouseSensitivity: 2
---- !u!65 &704188227
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 704188220}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &704188231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41287,10 +41273,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 704188224}
-    - targetCorrespondingSourceObject: {fileID: 1716186300373558, guid: 20ce86f0ddf7cd1438b1f6d3006b3862,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 704188227}
     - targetCorrespondingSourceObject: {fileID: 1716186300373558, guid: 20ce86f0ddf7cd1438b1f6d3006b3862,
         type: 3}
       insertIndex: -1
