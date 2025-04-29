@@ -3,11 +3,10 @@ using UnityEngine;
 public class WeaponPickup : MonoBehaviour
 {
     public float pickupRange = 2f;
-    public Animator playerAnimator; // Reference to player's Animator
+    public Animator playerAnimator; 
     private string currentWeaponName = "Unarmed";
     
-    private GameObject currentWeaponObject; // Reference to the current weapon model (arms + weapon)
-    public GameObject transformlcation;
+    private GameObject currentWeaponObject; 
 
     void Update()
     {
@@ -20,7 +19,7 @@ public class WeaponPickup : MonoBehaviour
             {
                 Debug.Log("Weapon Detected: " + hit.collider.name);
 
-                if (Input.GetKeyDown(KeyCode.E)) // Pick up the weapon when 'E' is pressed
+                if (Input.GetKeyDown(KeyCode.E)) 
                 {
                     PickupWeapon(hit.collider.gameObject);
                 }
@@ -29,37 +28,29 @@ public class WeaponPickup : MonoBehaviour
     }
 
     void PickupWeapon(GameObject weaponObject)
-{
+    {
     WeaponHolder holder = weaponObject.GetComponent<WeaponHolder>();
     if (holder != null && holder.weaponData != null)
     {
-        // If there's an existing weapon equipped, destroy it
         if (currentWeaponObject != null)
         {
             Destroy(currentWeaponObject);
         }
 
-        // Calculate the spawn position with an offset (slightly behind and lower)
         Vector3 spawnPosition = playerAnimator.transform.position + playerAnimator.transform.forward * -0.2f + playerAnimator.transform.up * -0.05f;
-        
-        // Instantiate the new weapon prefab (which includes arms and gun)
+       
         currentWeaponObject = Instantiate(holder.weaponData.weaponPrefab, spawnPosition, playerAnimator.transform.rotation);
         
-        // Set the new weapon's parent to the player's Animator
         currentWeaponObject.transform.SetParent(playerAnimator.transform);
-
-        // Set the new avatar for the weapon (if necessary)
+        
         playerAnimator.avatar = holder.weaponData.weaponAvatar;
-
-        // Set the new RuntimeAnimatorController to handle animations for this weapon
+        
         playerAnimator.runtimeAnimatorController = holder.weaponData.weaponAnimatorOverride;
-
-        // Update the current weapon name
+        
         currentWeaponName = holder.weaponData.weaponName;
 
         Debug.Log("Picked up weapon: " + currentWeaponName);
 
-        // Destroy the weapon pickup object in the world
         Destroy(weaponObject);
     }
     else

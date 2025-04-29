@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef66803b03478bb4493107311a0bcf3e, type: 3}
+  m_Name: Melee
+  m_EditorClassIdentifier: 
+  weaponName: Melee
+  weaponPrefab: {fileID: 919132149155446097, guid: 90c3ebf1db0d18044807db1a59894e45,
+    type: 3}
+  weaponAnimatorOverride: {fileID: 22100000, guid: 83f2d4e3eff9dc941bbe6280e6355229,
+    type: 2}
+  weaponAvatar: {fileID: 9000000, guid: 90c3ebf1db0d18044807db1a59894e45, type: 3}
