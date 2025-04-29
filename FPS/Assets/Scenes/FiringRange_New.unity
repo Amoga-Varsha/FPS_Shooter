@@ -16754,7 +16754,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupRange: 2
+  playerAnimator: {fileID: 0}
+--- !u!114 &976789685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976789679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d47bcffadb47f74499015b7517fe6ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   playerAnimator: {fileID: 2020834357}
+  weaponParent: {fileID: 2020834356}
+--- !u!114 &976789686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976789679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d935a49e2d90fff4dbf3b19adaf48e2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectedWeapons: []
 --- !u!1001 &978836150
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33887,6 +33914,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2020241689}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &2020834356 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1389831510156559644, guid: 20ce86f0ddf7cd1438b1f6d3006b3862,
+    type: 3}
+  m_PrefabInstance: {fileID: 9030392322807714279}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &2020834357 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5019684759827849062, guid: 20ce86f0ddf7cd1438b1f6d3006b3862,
@@ -41217,6 +41250,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1434065931911328, guid: 20ce86f0ddf7cd1438b1f6d3006b3862, type: 3}
+      propertyPath: m_Name
+      value: Equip
+      objectReference: {fileID: 0}
     - target: {fileID: 1465531005853894, guid: 20ce86f0ddf7cd1438b1f6d3006b3862, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -41306,6 +41343,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 976789682}
+    - targetCorrespondingSourceObject: {fileID: 1434065931911328, guid: 20ce86f0ddf7cd1438b1f6d3006b3862,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 976789685}
+    - targetCorrespondingSourceObject: {fileID: 1434065931911328, guid: 20ce86f0ddf7cd1438b1f6d3006b3862,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 976789686}
   m_SourcePrefab: {fileID: 100100000, guid: 20ce86f0ddf7cd1438b1f6d3006b3862, type: 3}
 --- !u!4 &9110553116678261378 stripped
 Transform:
