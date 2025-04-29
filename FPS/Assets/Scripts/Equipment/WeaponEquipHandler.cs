@@ -3,7 +3,7 @@ using UnityEngine;
 public class WeaponEquipHandler : MonoBehaviour
 {
     public Animator playerAnimator;
-    public Transform weaponParent; // Where to attach the prefab
+    public Transform weaponParent; 
     private GameObject currentWeaponModel;
 
     void OnEnable()

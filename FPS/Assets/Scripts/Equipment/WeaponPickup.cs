@@ -3,8 +3,6 @@ using UnityEngine;
 public class WeaponPickup : MonoBehaviour
 {
     public float pickupRange = 2f;
-    //public Animator playerAnimator; 
-    //private string currentWeaponName = "Unarmed";
     
     private GameObject currentWeaponObject; 
 
