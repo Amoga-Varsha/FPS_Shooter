@@ -9,12 +9,11 @@ public abstract class WeaponBase : MonoBehaviour
     public float range = 100f;
 
     [Header("References")]
-    public Transform firePoint; // Where the raycast starts (e.g., barrel)
+    public Transform firePoint; // The muzzle or raycast start point
     public LayerMask hitLayers;
 
     protected bool isFiring;
 
-    // Public method to trigger fire (can be called from input)
     public void TryFire()
     {
         if (!isFiring)
@@ -23,29 +22,34 @@ public abstract class WeaponBase : MonoBehaviour
         }
     }
 
-    // Base coroutine handles fire timing
     protected virtual IEnumerator FireRoutine()
     {
         isFiring = true;
-
-        Fire(); // Call virtual method
-
+        Fire(); // Do the actual firing logic
         yield return new WaitForSeconds(fireRate);
         isFiring = false;
     }
 
-    // Virtual fire logic to override
     protected virtual void Fire()
+{
+    if (firePoint == null)
     {
-        Ray ray = new Ray(firePoint.position, firePoint.forward);
-        if (Physics.Raycast(ray, out RaycastHit hit, range, hitLayers))
-        {
-            Debug.Log($"Hit {hit.collider.name}, dealing {damage} damage");
-            // Optional: Damage logic here
-        }
-        else
-        {
-            Debug.Log("Missed.");
-        }
+        Debug.LogWarning("FirePoint is not assigned.");
+        return;
     }
+
+    Ray ray = new Ray(firePoint.position, firePoint.forward);
+    Debug.DrawRay(firePoint.position, firePoint.forward * range, Color.red, 1f); // <--- Debug Line
+
+    if (Physics.Raycast(ray, out RaycastHit hit, range, hitLayers))
+    {
+        Debug.Log($"Hit {hit.collider.name}, dealing {damage} damage");
+        // Add damage logic here
+    }
+    else
+    {
+        Debug.Log("Missed.");
+    }
+}
+
 }

@@ -9,36 +9,23 @@ public class PlayerAnimationController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    void Update()
+    public void SetRunning(bool isRunning)
     {
-        if(Input.GetKeyDown(KeyCode.W))
-        {
-        animator.SetBool("IsRunning", true);
-        
-        }
+        animator.SetBool("IsRunning", isRunning);
+    }
 
-        if(Input.GetKeyUp(KeyCode.W))
-        {
-            animator.SetBool("IsRunning",false);
-            
-        }
+    public void PlayJump()
+    {
+        animator.SetTrigger("Jumping");
+    }
 
-        if (Input.GetKeyDown("space"))
-        {
-            animator.SetTrigger("Jumping");
-            
-        }
+    public void PlayShoot()
+    {
+        animator.SetTrigger("Shoot");
+    }
 
-        if (Input.GetMouseButton(0))
-        {
-            animator.SetTrigger("Shoot");
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            animator.SetTrigger("Reload");
-            
-        }
+    public void PlayReload()
+    {
+        animator.SetTrigger("Reload");
     }
 }
-
