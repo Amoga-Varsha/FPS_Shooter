@@ -1,49 +1,67 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public abstract class WeaponBase : MonoBehaviour
 {
-    [Header("General Settings")]
-    public float damage = 10f;
-    public float fireRate = 0.2f;
-    public float range = 100f;
+    [Header("Weapon Settings")]
+    public int maxAmmo = 30;
+    public int ammoPerShot = 1;
+    public float reloadTime = 2f;
+    public float fireRate = 0.1f;
 
-    [Header("References")]
-    public LayerMask hitLayers;
+    protected int currentAmmo;
+    protected bool isReloading = false;
+    protected bool canFire = true;
 
-    protected bool isFiring;
+    public static event Action<int, int> OnAmmoChanged; // current, max
+
+    protected virtual void Start()
+    {
+        currentAmmo = maxAmmo;
+        OnAmmoChanged?.Invoke(currentAmmo, maxAmmo);
+    }
 
     public void TryFire(Camera cam)
     {
-        if (!isFiring)
-        {
-            StartCoroutine(FireRoutine(cam));
-        }
+        if (!canFire || isReloading || currentAmmo <= 0)
+            return;
+        Debug.Log($"Ammo: {currentAmmo}/{maxAmmo}");
+
+        StartCoroutine(FireCoroutine(cam));
     }
 
-    protected virtual IEnumerator FireRoutine(Camera cam)
+    private IEnumerator FireCoroutine(Camera cam)
     {
-        isFiring = true;
+        canFire = false;
+
         Fire(cam);
+
+        currentAmmo -= ammoPerShot;
+        OnAmmoChanged?.Invoke(currentAmmo, maxAmmo);
+
         yield return new WaitForSeconds(fireRate);
-        isFiring = false;
+
+        canFire = true;
     }
 
-    protected virtual void Fire(Camera cam)
-    {
-        Ray ray = new Ray(cam.transform.position, cam.transform.forward);
-        
-        if (Physics.Raycast(ray, out RaycastHit hit, range, hitLayers))
-        {
-            Debug.Log($"Hit {hit.collider.name}, dealing {damage} damage");
-            // Add damage logic here
-        }
-        else
-        {
-            Debug.Log("Missed.");
-        }
+    protected abstract void Fire(Camera cam);
 
-        // Debug ray for visualization
-        Debug.DrawRay(ray.origin, ray.direction * range, Color.red, 0.1f);
+    public void StartReload()
+    {
+        if (!isReloading && currentAmmo < maxAmmo)
+            StartCoroutine(ReloadCoroutine());
+    }
+
+    private IEnumerator ReloadCoroutine()
+    {
+        isReloading = true;
+
+        yield return new WaitForSeconds(reloadTime);
+
+        currentAmmo = maxAmmo;
+        OnAmmoChanged?.Invoke(currentAmmo, maxAmmo);
+
+        isReloading = false;
     }
 }
