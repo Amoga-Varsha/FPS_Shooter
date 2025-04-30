@@ -9,47 +9,41 @@ public abstract class WeaponBase : MonoBehaviour
     public float range = 100f;
 
     [Header("References")]
-    public Transform firePoint; // The muzzle or raycast start point
     public LayerMask hitLayers;
 
     protected bool isFiring;
 
-    public void TryFire()
+    public void TryFire(Camera cam)
     {
         if (!isFiring)
         {
-            StartCoroutine(FireRoutine());
+            StartCoroutine(FireRoutine(cam));
         }
     }
 
-    protected virtual IEnumerator FireRoutine()
+    protected virtual IEnumerator FireRoutine(Camera cam)
     {
         isFiring = true;
-        Fire(); // Do the actual firing logic
+        Fire(cam);
         yield return new WaitForSeconds(fireRate);
         isFiring = false;
     }
 
-    protected virtual void Fire()
-{
-    if (firePoint == null)
+    protected virtual void Fire(Camera cam)
     {
-        Debug.LogWarning("FirePoint is not assigned.");
-        return;
-    }
+        Ray ray = new Ray(cam.transform.position, cam.transform.forward);
+        
+        if (Physics.Raycast(ray, out RaycastHit hit, range, hitLayers))
+        {
+            Debug.Log($"Hit {hit.collider.name}, dealing {damage} damage");
+            // Add damage logic here
+        }
+        else
+        {
+            Debug.Log("Missed.");
+        }
 
-    Ray ray = new Ray(firePoint.position, firePoint.forward);
-    Debug.DrawRay(firePoint.position, firePoint.forward * range, Color.red, 1f); // <--- Debug Line
-
-    if (Physics.Raycast(ray, out RaycastHit hit, range, hitLayers))
-    {
-        Debug.Log($"Hit {hit.collider.name}, dealing {damage} damage");
-        // Add damage logic here
+        // Debug ray for visualization
+        Debug.DrawRay(ray.origin, ray.direction * range, Color.red, 0.1f);
     }
-    else
-    {
-        Debug.Log("Missed.");
-    }
-}
-
 }

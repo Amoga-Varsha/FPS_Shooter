@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   weaponName: Pistol
-  weaponPrefab: {fileID: 919132149155446097, guid: 31f1551ae3b756a458c9985153fa3658,
+  weaponPrefab: {fileID: 2442595444849072825, guid: 138dfe5b04ebfbd4189aefe90aa11cdd,
     type: 3}
   weaponAnimatorOverride: {fileID: 22100000, guid: 9f44a143f71beb7409a26b7d530a9487,
     type: 2}

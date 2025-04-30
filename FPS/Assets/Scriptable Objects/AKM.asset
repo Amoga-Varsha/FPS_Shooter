@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AKM
   m_EditorClassIdentifier: 
   weaponName: AKM
-  weaponPrefab: {fileID: 919132149155446097, guid: aebc5757cb26e464e8a59137dbdc17c8,
+  weaponPrefab: {fileID: 9070579996957635818, guid: ebb771ae6929d664ead6443ad83aed93,
     type: 3}
   weaponAnimatorOverride: {fileID: 22100000, guid: ff9618db04d775246b5001faa936c5d4,
     type: 2}

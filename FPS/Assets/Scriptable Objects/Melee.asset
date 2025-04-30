@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Melee
   m_EditorClassIdentifier: 
   weaponName: Melee
-  weaponPrefab: {fileID: 919132149155446097, guid: 90c3ebf1db0d18044807db1a59894e45,
+  weaponPrefab: {fileID: 7690175864117078065, guid: 988240f799d4d2d4e99105f62c70c856,
     type: 3}
   weaponAnimatorOverride: {fileID: 22100000, guid: 83f2d4e3eff9dc941bbe6280e6355229,
     type: 2}

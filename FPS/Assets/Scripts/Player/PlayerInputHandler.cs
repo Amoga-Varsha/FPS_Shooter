@@ -3,7 +3,14 @@ using UnityEngine;
 public class PlayerInputHandler : MonoBehaviour
 {
     public PlayerAnimationController animationController;
-    public WeaponBase currentWeapon;
+    private Camera mainCamera;
+    private WeaponInventory weaponInventory; // Access inventory
+
+    void Start()
+    {
+        mainCamera = Camera.main;
+        weaponInventory = FindFirstObjectByType<WeaponInventory>(); // Find inventory once
+    }
 
     void Update()
     {
@@ -17,17 +24,13 @@ public class PlayerInputHandler : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             animationController.PlayShoot();
-            currentWeapon?.TryFire();
+            WeaponBase equippedWeapon = weaponInventory.GetEquippedWeapon(); // Get weapon dynamically
+            equippedWeapon?.TryFire(mainCamera);
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
             animationController.PlayReload();
         }
-    }
-
-    public void SetCurrentWeapon(WeaponBase newWeapon)
-    {
-        currentWeapon = newWeapon;
     }
 }

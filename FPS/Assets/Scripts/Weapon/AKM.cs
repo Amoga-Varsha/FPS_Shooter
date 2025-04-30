@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class AKM : WeaponBase
 {
-    protected override void Fire()
+    protected override void Fire(Camera cam)
     {
-        base.Fire();
-        // Add unique effects for rifle here: muzzle flash, sound, etc.
-        Debug.Log("Rifle fired!");
+        base.Fire(cam);
+        // Add AKM-specific effects like muzzle flash, sound, etc.
+        Debug.Log("AKM fired!");
     }
 }

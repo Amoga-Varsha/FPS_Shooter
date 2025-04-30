@@ -30,16 +30,17 @@ public class WeaponPickup : MonoBehaviour
     WeaponHolder holder = weaponObject.GetComponent<WeaponHolder>();
     if (holder != null && holder.weaponData != null)
     {
-        FindFirstObjectByType<WeaponInventory>().AddWeapon(holder.weaponData);
+        WeaponInventory inventory = FindFirstObjectByType<WeaponInventory>();
+        inventory.AddWeapon(holder.weaponData);
 
         GameObject newWeapon = Instantiate(holder.weaponData.weaponPrefab);
-        newWeapon.transform.SetParent(Camera.main.transform); 
+        newWeapon.transform.SetParent(Camera.main.transform);
         newWeapon.transform.localPosition = Vector3.zero;
         newWeapon.transform.localRotation = Quaternion.identity;
 
         currentWeaponObject = newWeapon;
 
-        FindFirstObjectByType<PlayerInputHandler>().SetCurrentWeapon(newWeapon.GetComponent<WeaponBase>());
+        inventory.SetEquippedWeapon(newWeapon.GetComponent<WeaponBase>()); // <-- THIS instead of SetCurrentWeapon
 
         Destroy(weaponObject);
     }
@@ -48,6 +49,7 @@ public class WeaponPickup : MonoBehaviour
         Debug.LogWarning("WeaponHolder or WeaponData missing on: " + weaponObject.name);
     }
 }
+
 
 
 

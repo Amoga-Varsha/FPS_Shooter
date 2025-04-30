@@ -6466,7 +6466,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationController: {fileID: 2020834355}
-  currentWeapon: {fileID: 0}
 --- !u!1001 &402462672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16939,6 +16938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectedWeapons: []
+  startingWeapon: {fileID: 11400000, guid: fe505050594d8dc48ba78d8720b2855d, type: 2}
 --- !u!1001 &978836150
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21195,10 +21195,9 @@ MonoBehaviour:
   damage: 10
   fireRate: 0.2
   range: 500
-  firePoint: {fileID: 0}
   hitLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 4294967295
 --- !u!1001 &1218895949
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41549,6 +41548,11 @@ PrefabInstance:
       propertyPath: m_CullingMask.m_Bits
       value: 23
       objectReference: {fileID: 0}
+    - target: {fileID: 20609963974102722, guid: 20ce86f0ddf7cd1438b1f6d3006b3862,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3518442642812445701, guid: 20ce86f0ddf7cd1438b1f6d3006b3862,
         type: 3}
       propertyPath: playerCamera
@@ -41579,7 +41583,8 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 2020834357}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5473407965607249735, guid: 20ce86f0ddf7cd1438b1f6d3006b3862, type: 3}
     m_RemovedGameObjects:
     - {fileID: 2465756846813389238, guid: 20ce86f0ddf7cd1438b1f6d3006b3862, type: 3}
     - {fileID: 3982533618724021581, guid: 20ce86f0ddf7cd1438b1f6d3006b3862, type: 3}
