@@ -31,6 +31,8 @@ public class PlayerInputHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             animationController.PlayReload();
+            WeaponBase equippedWeapon = weaponInventory.GetEquippedWeapon();
+            equippedWeapon?.StartReload();
         }
     }
 }

@@ -3,27 +3,45 @@ using UnityEngine;
 public class AKM : WeaponBase
 {
     [Header("AKM Settings")]
-    public int damage = 20;
-    public float fireRange = 100f;
+    public float damage = 25f;
+    public float range = 100f;
+    //public ParticleSystem muzzleFlash;
+    //public GameObject impactEffect;
 
     protected override void Fire(Camera cam)
     {
-        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        if (Physics.Raycast(ray, out RaycastHit hit, fireRange))
+        // if (muzzleFlash != null)
+        //     muzzleFlash.Play();
+
+        if (cam == null)
         {
-            //Debug.Log($"Hit object: {hit.collider.name}");
+            Debug.LogWarning("Camera not assigned for firing!");
+            return;
+        }
 
-            // -- Commented out until you implement EnemyHealth! --
-            if (hit.collider.CompareTag("Enemy"))
-             {
-                Debug.Log("Enemy hit!");
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, range))
+        {
+            
 
-            //     EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
-            //     if (enemyHealth != null)
-            //     {
-            //         enemyHealth.TakeDamage(damage);
-            //     }
+            // Check if the hit object is tagged as "Enemy"
+            if (hit.transform.CompareTag("Enemy"))
+            {
+                Debug.Log("AKM Hit: " + hit.transform.name);
+                // Apply damage if EnemyHealth script exists
+                /* Uncomment when EnemyHealth script ready
+                EnemyHealth enemyHealth = hit.transform.GetComponent<EnemyHealth>();
+                if (enemyHealth != null)
+                {
+                    enemyHealth.TakeDamage(damage);
+                }
+                */
             }
+
+            // Instantiate impact effect at hit point
+            // if (impactEffect != null)
+            // {
+            //     Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            // }
         }
     }
 }
