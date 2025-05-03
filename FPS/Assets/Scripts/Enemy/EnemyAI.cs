@@ -15,12 +15,21 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Attack Settings")]
     public float fireRate = 1f; // bullets per second
+    public int damagePerShot = 10;
     private float nextFireTime = 0f;
     private bool isPlayerDetected = false;
+
+    [Header("Health Settings")]
+    public int maxHealth = 100;
+    private int currentHealth;
+
+    private Animator animator;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+        currentHealth = maxHealth;
 
         if (patrolPoints.Length > 0)
         {
@@ -30,6 +39,8 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
+        if (currentHealth <= 0) return; // Don't do anything if dead
+
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
         if (distanceToPlayer <= detectionRange)
@@ -58,13 +69,24 @@ public class EnemyAI : MonoBehaviour
             currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
             agent.destination = patrolPoints[currentPatrolIndex].position;
         }
+
+        if (animator != null)
+        {
+            animator.SetBool("isWalking", true); // Optional: play walk animation
+        }
     }
 
     void HandleCombat(float distanceToPlayer)
     {
         agent.SetDestination(transform.position); // Stop moving
 
-        transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z)); // Look at player horizontally
+        if (animator != null)
+        {
+            animator.SetBool("isWalking", false); // Stop walk animation
+            animator.SetTrigger("Shoot"); // Trigger shoot animation
+        }
+
+        transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z)); // Look horizontally at player
 
         if (distanceToPlayer <= shootingRange && Time.time >= nextFireTime)
         {
@@ -75,7 +97,34 @@ public class EnemyAI : MonoBehaviour
 
     void Shoot()
     {
-        // You will replace this with actual shooting logic later
-        Debug.Log("Enemy shoots at player!");
+        // Damage the player
+        PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+        if (playerHealth != null)
+        {
+            playerHealth.TakeDamage(damagePerShot);
+        }
+    }
+
+    public void TakeDamage(int amount)
+    {
+        currentHealth -= amount;
+        Debug.Log("Enemy Health: "+ currentHealth);
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        // Play death animation
+        if (animator != null)
+        {
+            animator.SetTrigger("Die");
+        }
+
+        agent.enabled = false; // Stop moving
+        Destroy(gameObject, 3f); // Destroy after 3 seconds (or after death animation)
     }
 }

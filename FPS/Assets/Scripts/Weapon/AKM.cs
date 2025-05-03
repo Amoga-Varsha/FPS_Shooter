@@ -3,7 +3,7 @@ using UnityEngine;
 public class AKM : WeaponBase
 {
     [Header("AKM Settings")]
-    public float damage = 25f;
+    public int damage = 25;
     public float range = 100f;
     //public ParticleSystem muzzleFlash;
     //public GameObject impactEffect;
@@ -28,13 +28,14 @@ public class AKM : WeaponBase
             {
                 Debug.Log("AKM Hit: " + hit.transform.name);
                 // Apply damage if EnemyHealth script exists
-                /* Uncomment when EnemyHealth script ready
-                EnemyHealth enemyHealth = hit.transform.GetComponent<EnemyHealth>();
+                EnemyAI enemyHealth = hit.transform.GetComponent<EnemyAI>();
                 if (enemyHealth != null)
                 {
                     enemyHealth.TakeDamage(damage);
                 }
-                */
+
+                
+                
             }
 
             // Instantiate impact effect at hit point

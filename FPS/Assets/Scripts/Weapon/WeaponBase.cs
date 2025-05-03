@@ -1,28 +1,32 @@
 using System.Collections;
 using UnityEngine;
-using System; // for Action (events)
+using System; 
 
 public abstract class WeaponBase : MonoBehaviour
 {
     [Header("Weapon Settings")]
-    public float fireRate = 0.1f;   // Seconds between each shot
-    public float reloadTime = 2f;   // Seconds to reload
-    public int maxAmmoInMag = 30;   // Max bullets in magazine
-    public int totalAmmo = 150;     // Total reserve ammo
-    public int ammoPerShot = 1;     // Ammo used per shot
+    public float fireRate = 0.1f;   
+    public float reloadTime = 2f;   
+    public int maxAmmoInMag = 30;   
+    public int totalAmmo = 150;     
+    public int ammoPerShot = 1;     
 
     protected int currentAmmoInMag;
     protected bool canFire = true;
     protected bool isReloading = false;
 
-    // Event to notify when ammo changes (for UI)
-    //public event Action<int, int> OnAmmoChanged;
+    public static event Action<int, int> OnAmmoChanged; 
+
+    protected void NotifyAmmoChanged()
+    {
+        OnAmmoChanged?.Invoke(currentAmmoInMag, totalAmmo);
+    }
+
 
     protected virtual void Start()
     {
         currentAmmoInMag = maxAmmoInMag;
-        // Fire event to initialize UI (commented if UI not ready)
-        // OnAmmoChanged?.Invoke(currentAmmoInMag, totalAmmo);
+        NotifyAmmoChanged();
 
         Debug.Log($"[WeaponBase] Ammo Initialized: {currentAmmoInMag}/{totalAmmo}");
     }
@@ -49,8 +53,7 @@ public abstract class WeaponBase : MonoBehaviour
 
         Debug.Log($"[WeaponBase] Fired! Ammo Left: {currentAmmoInMag}/{totalAmmo}");
 
-        // Notify UI about ammo change
-        // OnAmmoChanged?.Invoke(currentAmmoInMag, totalAmmo);
+        NotifyAmmoChanged();
 
         yield return new WaitForSeconds(fireRate);
 
@@ -74,8 +77,6 @@ public abstract class WeaponBase : MonoBehaviour
 
     Debug.Log("[WeaponBase] Reloading...");
 
-    // Optional: Play reload animation trigger here
-
     yield return new WaitForSeconds(reloadTime);
 
     int neededAmmo = maxAmmoInMag - currentAmmoInMag;
@@ -93,12 +94,9 @@ public abstract class WeaponBase : MonoBehaviour
 
     Debug.Log($"[WeaponBase] Reload Complete. Ammo: {currentAmmoInMag}/{totalAmmo}");
 
-    // Fire the event AFTER setting the ammo
-    // OnAmmoChanged?.Invoke(currentAmmoInMag, totalAmmo);
+    NotifyAmmoChanged();
 
     isReloading = false;
 }
-
-    // Abstract method for different guns to implement their own firing logic
     protected abstract void Fire(Camera cam);
 }
