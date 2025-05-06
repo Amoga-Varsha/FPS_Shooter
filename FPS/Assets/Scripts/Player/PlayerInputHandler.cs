@@ -4,12 +4,12 @@ public class PlayerInputHandler : MonoBehaviour
 {
     public PlayerAnimationController animationController;
     private Camera mainCamera;
-    private WeaponInventory weaponInventory; // Access inventory
+    private WeaponInventory weaponInventory; 
 
     void Start()
     {
         mainCamera = Camera.main;
-        weaponInventory = FindFirstObjectByType<WeaponInventory>(); // Find inventory once
+        weaponInventory = FindFirstObjectByType<WeaponInventory>(); 
     }
 
     void Update()
@@ -24,7 +24,7 @@ public class PlayerInputHandler : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             animationController.PlayShoot();
-            WeaponBase equippedWeapon = weaponInventory.GetEquippedWeapon(); // Get weapon dynamically
+            WeaponBase equippedWeapon = weaponInventory.GetEquippedWeapon(); 
             equippedWeapon?.TryFire(mainCamera);
         }
 

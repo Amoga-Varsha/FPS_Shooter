@@ -1,11 +1,11 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 using System;
 
 public abstract class WeaponBase : MonoBehaviour
 {
     [Header("Weapon Settings")]
-    
+    public bool isMeleeWeapon = false; 
     public float fireRate = 0.1f;
     public float reloadTime = 2f;
     public int maxAmmoInMag = 30;
@@ -15,6 +15,7 @@ public abstract class WeaponBase : MonoBehaviour
     protected int currentAmmoInMag;
     protected bool canFire = true;
     protected bool isReloading = false;
+    private Coroutine reloadCoroutine; 
 
     public static event Action<int, int> OnAmmoChanged;
 
@@ -26,7 +27,25 @@ public abstract class WeaponBase : MonoBehaviour
 
     public virtual void TryFire(Camera cam)
     {
-        if (!canFire || isReloading || currentAmmoInMag <= 0)
+        if (isMeleeWeapon)
+        {
+            StartCoroutine(FireCoroutine(cam));
+            return;
+        }
+
+        if (isReloading)
+        {
+            if (reloadCoroutine != null)
+            {
+                StopCoroutine(reloadCoroutine);
+                reloadCoroutine = null;
+            }
+            isReloading = false;
+            Debug.Log("[WeaponBase] Reload interrupted by firing!");
+            return;
+        }
+
+        if (!canFire || currentAmmoInMag <= 0)
         {
             if (currentAmmoInMag <= 0)
                 Debug.Log("[WeaponBase] Can't fire: No Ammo! Reload needed.");
@@ -42,9 +61,11 @@ public abstract class WeaponBase : MonoBehaviour
 
         Fire(cam);
 
-        currentAmmoInMag -= ammoPerShot;
-
-        NotifyAmmoChanged();
+        if (!isMeleeWeapon) 
+        {
+            currentAmmoInMag -= ammoPerShot;
+            NotifyAmmoChanged();
+        }
 
         yield return new WaitForSeconds(fireRate);
 
@@ -53,13 +74,15 @@ public abstract class WeaponBase : MonoBehaviour
 
     public virtual void StartReload()
     {
+        if (isMeleeWeapon) return; 
+
         if (isReloading || currentAmmoInMag == maxAmmoInMag || totalAmmo <= 0)
         {
             Debug.Log("[WeaponBase] Cannot reload: Either already full or no reserve ammo!");
             return;
         }
 
-        StartCoroutine(ReloadCoroutine());
+        reloadCoroutine = StartCoroutine(ReloadCoroutine());
     }
 
     private IEnumerator ReloadCoroutine()
@@ -88,6 +111,7 @@ public abstract class WeaponBase : MonoBehaviour
         NotifyAmmoChanged();
 
         isReloading = false;
+        reloadCoroutine = null;
     }
 
     protected abstract void Fire(Camera cam);

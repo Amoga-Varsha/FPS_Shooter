@@ -6,8 +6,16 @@ public class Pistol : WeaponBase
     public int damage = 15;
     public float range = 50f;
 
+    public AudioSource audioSource; 
+    public AudioClip fireSound;
+
     protected override void Fire(Camera cam)
     {
+        if (audioSource != null && fireSound != null)
+        {
+            audioSource.PlayOneShot(fireSound);
+        }
+
         if (cam == null)
         {
             Debug.LogWarning("Camera not assigned for firing!");

@@ -13,6 +13,9 @@ public class SniperRifle : WeaponBase
 
     private Camera playerCamera;
 
+    public AudioSource audioSource; 
+    public AudioClip fireSound;
+
     protected override void Start()
     {
         base.Start();
@@ -22,6 +25,11 @@ public class SniperRifle : WeaponBase
 
     protected override void Fire(Camera cam)
     {
+        if (audioSource != null && fireSound != null)
+        {
+            audioSource.PlayOneShot(fireSound);
+        }
+
         if (cam == null)
         {
             Debug.LogWarning("Camera not assigned for firing!");

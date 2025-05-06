@@ -10,7 +10,7 @@ public class WeaponInventory : MonoBehaviour
     [SerializeField] private List<WeaponData> collectedWeapons = new List<WeaponData>();
     [SerializeField] private WeaponData startingWeapon;
 
-        public static event Action<Sprite> OnWeaponSwitched;
+    public static event Action<Sprite> OnWeaponSwitched;
 
     private WeaponData weaponData;
 

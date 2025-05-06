@@ -8,8 +8,16 @@ public class Shotgun : WeaponBase
     public float spreadAngle = 5f;
     public float range = 30f;
 
+    public AudioSource audioSource; 
+    public AudioClip fireSound;
+
     protected override void Fire(Camera cam)
     {
+        if (audioSource != null && fireSound != null)
+        {
+            audioSource.PlayOneShot(fireSound);
+        }
+
         if (cam == null)
         {
             Debug.LogWarning("Camera not assigned for firing!");
@@ -23,7 +31,7 @@ public class Shotgun : WeaponBase
                 Random.Range(-spreadAngle, spreadAngle),
                 Random.Range(-spreadAngle, spreadAngle),
                 0
-            ) * 0.01f; // Tiny spread factor
+            ) * 0.01f; 
 
             if (Physics.Raycast(cam.transform.position, spreadDirection.normalized, out RaycastHit hit, range))
             {

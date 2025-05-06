@@ -8,8 +8,16 @@ public class AKM : WeaponBase
     //public ParticleSystem muzzleFlash;
     //public GameObject impactEffect;
 
+    public AudioSource audioSource; 
+    public AudioClip fireSound;
+
     protected override void Fire(Camera cam)
     {
+        if (audioSource != null && fireSound != null)
+        {
+            audioSource.PlayOneShot(fireSound);
+        }
+
         // if (muzzleFlash != null)
         //     muzzleFlash.Play();
 
@@ -21,13 +29,9 @@ public class AKM : WeaponBase
 
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, range))
         {
-            
-
-            // Check if the hit object is tagged as "Enemy"
             if (hit.transform.CompareTag("Enemy"))
             {
                 Debug.Log("AKM Hit: " + hit.transform.name);
-                // Apply damage if EnemyHealth script exists
                 EnemyAI enemyHealth = hit.transform.GetComponent<EnemyAI>();
                 if (enemyHealth != null)
                 {
@@ -38,7 +42,6 @@ public class AKM : WeaponBase
                 
             }
 
-            // Instantiate impact effect at hit point
             // if (impactEffect != null)
             // {
             //     Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
