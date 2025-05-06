@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public static event Action<int> OnPlayerHealthChanged;
+    public static event Action OnPlayerDeath;
 
     public int maxHealth = 100;
     private int currentHealth;
@@ -32,7 +33,6 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Player Died!");
-        // Add Death Behavior Here
+        OnPlayerDeath?.Invoke();
     }
 }

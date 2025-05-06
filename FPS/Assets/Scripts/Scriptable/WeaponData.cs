@@ -4,9 +4,11 @@ using UnityEngine;
 public class WeaponData : ScriptableObject
 {
     public string weaponName;
-    public GameObject weaponPrefab;    // The weapon prefab (with arms)
-    //public GameObject weaponModel;     // The weapon model (if separate from arms)
+    public GameObject weaponPrefab;   
 
-    public AnimatorOverrideController weaponAnimatorOverride; // AnimatorOverrideController for the weapon
-    public Avatar weaponAvatar; // Avatar specific to the weapon
+    public AnimatorOverrideController weaponAnimatorOverride; 
+    public Avatar weaponAvatar; 
+
+    [Header("UI")]
+    public Sprite weaponIcon;
 }

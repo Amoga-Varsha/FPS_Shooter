@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class EnemyAI : MonoBehaviour
     public float shootingRange = 8f;
 
     [Header("Attack Settings")]
-    public float fireRate = 1f; // bullets per second
+    public float fireRate = 1f; 
     public int damagePerShot = 10;
     private float nextFireTime = 0f;
     private bool isPlayerDetected = false;
@@ -24,6 +25,8 @@ public class EnemyAI : MonoBehaviour
     private int currentHealth;
 
     private Animator animator;
+
+    public static event Action enemydead;
 
     void Start()
     {
@@ -39,7 +42,7 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        if (currentHealth <= 0) return; // Don't do anything if dead
+        if (currentHealth <= 0) return; 
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
@@ -72,18 +75,18 @@ public class EnemyAI : MonoBehaviour
 
         if (animator != null)
         {
-            animator.SetBool("isWalking", true); // Optional: play walk animation
+            animator.SetBool("isWalking", true); 
         }
     }
 
     void HandleCombat(float distanceToPlayer)
     {
-        agent.SetDestination(transform.position); // Stop moving
+        agent.SetDestination(transform.position); 
 
         if (animator != null)
         {
-            animator.SetBool("isWalking", false); // Stop walk animation
-            animator.SetTrigger("Shoot"); // Trigger shoot animation
+            animator.SetBool("isWalking", false); 
+            animator.SetTrigger("Shoot"); 
         }
 
         transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z)); // Look horizontally at player
@@ -97,7 +100,6 @@ public class EnemyAI : MonoBehaviour
 
     void Shoot()
     {
-        // Damage the player
         PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
         if (playerHealth != null)
         {
@@ -118,13 +120,13 @@ public class EnemyAI : MonoBehaviour
 
     void Die()
     {
-        // Play death animation
-        if (animator != null)
-        {
-            animator.SetTrigger("Die");
-        }
+        // if (animator != null)
+        // {
+        //     animator.SetTrigger("Die");
+        // }
 
-        agent.enabled = false; // Stop moving
-        Destroy(gameObject, 3f); // Destroy after 3 seconds (or after death animation)
+        enemydead?.Invoke();
+        agent.enabled = false; 
+        Destroy(gameObject, 3f); 
     }
 }

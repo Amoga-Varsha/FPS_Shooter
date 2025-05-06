@@ -18,3 +18,4 @@ MonoBehaviour:
   weaponAnimatorOverride: {fileID: 22100000, guid: ff9618db04d775246b5001faa936c5d4,
     type: 2}
   weaponAvatar: {fileID: 9000000, guid: aebc5757cb26e464e8a59137dbdc17c8, type: 3}
+  weaponIcon: {fileID: 21300000, guid: ba6df4bfa97c98649b1d35258104d543, type: 3}

@@ -7,7 +7,11 @@ public class WeaponInventory : MonoBehaviour
     public static Action<WeaponData> OnWeaponEquipped;
 
     [SerializeField] private List<WeaponData> collectedWeapons = new List<WeaponData>();
-    [SerializeField] private WeaponData startingWeapon; // <-- ADD THIS
+    [SerializeField] private WeaponData startingWeapon; 
+
+    public static event Action<Sprite> OnWeaponSwitched;
+
+    public WeaponData weaponData; 
 
     private int currentIndex = -1;
     private WeaponBase equippedWeapon;
@@ -17,7 +21,7 @@ public class WeaponInventory : MonoBehaviour
         if (startingWeapon != null)
         {
             collectedWeapons.Add(startingWeapon);
-            EquipWeapon(0); // Equip starting weapon at start
+            EquipWeapon(0); 
         }
     }
 
@@ -36,6 +40,7 @@ public class WeaponInventory : MonoBehaviour
         {
             currentIndex = index;
             OnWeaponEquipped?.Invoke(collectedWeapons[index]);
+            OnWeaponSwitched?.Invoke(collectedWeapons[index].weaponIcon);
         }
     }
 
