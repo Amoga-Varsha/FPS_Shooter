@@ -1,7 +1,8 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System.Collections.Generic; 
+using System.Collections.Generic;
+using UnityEngine.SceneManagement; 
 
 public class UIManager : MonoBehaviour
 {
@@ -14,11 +15,23 @@ public class UIManager : MonoBehaviour
     public GameObject crosshair;
 
     [Header("Weapon Inventory UI")]
-    public TextMeshProUGUI weaponInventoryText; 
+    public TextMeshProUGUI weaponInventoryText;
+
+    [Header("Pause Menu")]
+    public GameObject pauseMenu; 
+    public Button resumeButton;
+    public Button restartButton;
+    public Button quitButton;
 
     [Header("Win/Lose Screens")]
     public GameObject winScreen;
     public GameObject loseScreen;
+    public Button winRestartButton;
+    public Button winQuitButton;
+    public Button loseRestartButton;
+    public Button loseQuitButton;
+
+    private bool isGamePaused = false;
 
     private void Awake()
     {
@@ -30,17 +43,27 @@ public class UIManager : MonoBehaviour
     {
         WeaponBase.OnAmmoChanged += UpdateAmmoUI;
         WeaponInventory.OnWeaponSwitched += UpdateGunIcon;
-        WeaponInventory.OnInventoryUpdated += UpdateWeaponInventoryUI; 
+        WeaponInventory.OnInventoryUpdated += UpdateWeaponInventoryUI;
         PlayerHealth.OnPlayerHealthChanged += UpdateHealthBar;
         PlayerHealth.OnPlayerDeath += ShowLoseScreen;
         EnemyManager.OnAllEnemiesDead += ShowWinScreen;
+
+        resumeButton.onClick.AddListener(ResumeGame);
+        restartButton.onClick.AddListener(RestartGame);
+        quitButton.onClick.AddListener(QuitGame);
+
+        winRestartButton.onClick.AddListener(RestartGame);
+        winQuitButton.onClick.AddListener(QuitGame);
+
+        loseRestartButton.onClick.AddListener(RestartGame);
+        loseQuitButton.onClick.AddListener(QuitGame);
     }
 
     private void OnDisable()
     {
         WeaponBase.OnAmmoChanged -= UpdateAmmoUI;
         WeaponInventory.OnWeaponSwitched -= UpdateGunIcon;
-        WeaponInventory.OnInventoryUpdated -= UpdateWeaponInventoryUI; 
+        WeaponInventory.OnInventoryUpdated -= UpdateWeaponInventoryUI;
         PlayerHealth.OnPlayerHealthChanged -= UpdateHealthBar;
         PlayerHealth.OnPlayerDeath -= ShowLoseScreen;
         EnemyManager.OnAllEnemiesDead -= ShowWinScreen;
@@ -61,16 +84,13 @@ public class UIManager : MonoBehaviour
         healthBar.value = currentHealth;
     }
 
-    private void UpdateWeaponInventoryUI(List<WeaponData> weapons) 
+    private void UpdateWeaponInventoryUI(List<WeaponData> weapons)
     {
-        
         weaponInventoryText.text = "";
-
-        
         int weaponIndex = 1;
         foreach (WeaponData weapon in weapons)
         {
-            weaponInventoryText.text += $"{weaponIndex} - {weapon.weaponName}\n"; 
+            weaponInventoryText.text += $"{weaponIndex} - {weapon.weaponName}\n";
             weaponIndex++;
         }
     }
@@ -79,12 +99,18 @@ public class UIManager : MonoBehaviour
     {
         GameplayUIActive(false);
         winScreen.SetActive(true);
+        Time.timeScale = 0; 
+        PlayerContoller playerController = FindFirstObjectByType<PlayerContoller>();
+        playerController.UnlockCursor(); 
     }
 
     private void ShowLoseScreen()
     {
         GameplayUIActive(false);
         loseScreen.SetActive(true);
+        Time.timeScale = 0; 
+        PlayerContoller playerController = FindFirstObjectByType<PlayerContoller>();
+        playerController.UnlockCursor(); 
     }
 
     private void GameplayUIActive(bool isActive)
@@ -93,6 +119,51 @@ public class UIManager : MonoBehaviour
         gunIcon.gameObject.SetActive(isActive);
         healthBar.gameObject.SetActive(isActive);
         crosshair.SetActive(isActive);
-        weaponInventoryText.gameObject.SetActive(isActive); 
+        weaponInventoryText.gameObject.SetActive(isActive);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isGamePaused)
+            {
+                ResumeGame(); 
+            }
+            else
+            {
+                PauseGame(); 
+            }
+        }
+    }
+
+    private void PauseGame()
+    {
+        isGamePaused = true;
+        pauseMenu.SetActive(true);
+        Time.timeScale = 0; 
+        PlayerContoller playerController = FindFirstObjectByType<PlayerContoller>();
+        playerController.UnlockCursor(); 
+    }
+
+    private void ResumeGame()
+    {
+        isGamePaused = false;
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1; 
+        PlayerContoller playerController = FindFirstObjectByType<PlayerContoller>();
+        playerController.LockCursor(); 
+    }
+
+    private void RestartGame()
+    {
+        Time.timeScale = 1; 
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
+    }
+
+    private void QuitGame()
+    {
+        Time.timeScale = 1; 
+        Application.Quit(); 
     }
 }

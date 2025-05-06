@@ -3,9 +3,7 @@ using UnityEngine;
 public class WeaponPickup : MonoBehaviour
 {
     public float pickupRange = 2f;
-    
     private GameObject currentWeaponObject; 
-
 
     void Update()
     {
@@ -16,7 +14,6 @@ public class WeaponPickup : MonoBehaviour
         {
             if (hit.collider.CompareTag("Weapon"))
             {
-
                 if (Input.GetKeyDown(KeyCode.E)) 
                 {
                     PickupWeapon(hit.collider.gameObject);
@@ -26,52 +23,45 @@ public class WeaponPickup : MonoBehaviour
     }
 
     void PickupWeapon(GameObject weaponObject)
-{
-    WeaponHolder holder = weaponObject.GetComponent<WeaponHolder>();
-    if (holder != null && holder.weaponData != null)
     {
-
-        WeaponInventory inventory = FindFirstObjectByType<WeaponInventory>();
-        inventory.AddWeapon(holder.weaponData);
-
-        // Instantiate the weaponPrefab as a new object
-        GameObject weaponInstance = Instantiate(holder.weaponData.weaponPrefab);
-
-        // Set the weapon instance under the Camera (or player's hand transform)
-        weaponInstance.transform.SetParent(Camera.main.transform);
-        weaponInstance.transform.localPosition = Vector3.zero;
-        weaponInstance.transform.localRotation = Quaternion.identity;
-        weaponInstance.transform.localScale = Vector3.one; // Optional: Reset scale
-
-        // Activate it
-        weaponInstance.SetActive(true);
-
-        // Update the current weapon object
-        currentWeaponObject = weaponInstance;
-
-        // Get the WeaponBase component
-        WeaponBase weaponBase = weaponInstance.GetComponent<WeaponBase>();
-        if (weaponBase != null)
+        WeaponHolder holder = weaponObject.GetComponent<WeaponHolder>();
+        if (holder != null && holder.weaponData != null)
         {
-            inventory.SetEquippedWeapon(weaponBase);
+            WeaponInventory inventory = FindFirstObjectByType<WeaponInventory>();
+            if (inventory.GetWeaponCount() >= 3) 
+            {
+                Debug.Log("Inventory full! Cannot pick up weapon.");
+                return; 
+            }
+
+            inventory.AddWeapon(holder.weaponData);
+
+            GameObject weaponInstance = Instantiate(holder.weaponData.weaponPrefab);
+
+            weaponInstance.transform.SetParent(Camera.main.transform);
+            weaponInstance.transform.localPosition = Vector3.zero;
+            weaponInstance.transform.localRotation = Quaternion.identity;
+            weaponInstance.transform.localScale = Vector3.one; 
+
+            weaponInstance.SetActive(true);
+
+            currentWeaponObject = weaponInstance;
+
+            WeaponBase weaponBase = weaponInstance.GetComponent<WeaponBase>();
+            if (weaponBase != null)
+            {
+                inventory.SetEquippedWeapon(weaponBase);
+            }
+            else
+            {
+                Debug.LogWarning("WeaponBase not found on picked up weapon: " + weaponObject.name);
+            }
+
+            Destroy(weaponObject);
         }
         else
         {
-            Debug.LogWarning("WeaponBase not found on picked up weapon: " + weaponObject.name);
+            Debug.LogWarning("WeaponHolder or WeaponData missing on: " + weaponObject.name);
         }
-
-        // Destroy the pickup object
-        Destroy(weaponObject);
     }
-    else
-    {
-        Debug.LogWarning("WeaponHolder or WeaponData missing on: " + weaponObject.name);
-    }
-}
-
-
-
-
-
-
 }

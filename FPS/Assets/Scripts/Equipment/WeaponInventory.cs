@@ -10,7 +10,7 @@ public class WeaponInventory : MonoBehaviour
     [SerializeField] private List<WeaponData> collectedWeapons = new List<WeaponData>();
     [SerializeField] private WeaponData startingWeapon;
 
-    public static event Action<Sprite> OnWeaponSwitched;
+        public static event Action<Sprite> OnWeaponSwitched;
 
     private WeaponData weaponData;
 
@@ -66,4 +66,10 @@ public class WeaponInventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2)) EquipWeapon(1);
         if (Input.GetKeyDown(KeyCode.Alpha3)) EquipWeapon(2);
     }
+
+    public int GetWeaponCount()
+{
+    return collectedWeapons.Count;
+}
+
 }
