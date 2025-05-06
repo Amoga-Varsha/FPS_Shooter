@@ -1,10 +1,24 @@
 using UnityEngine;
 
-public class Sniper : WeaponBase
+public class SniperRifle : WeaponBase
 {
     [Header("Sniper Settings")]
     public int damage = 100;
     public float range = 300f;
+
+    [Header("Scope Settings")]
+    public float scopedFOV = 20f;
+    private float normalFOV;
+    private bool isScoped = false;
+
+    private Camera playerCamera;
+
+    protected override void Start()
+    {
+        base.Start();
+        playerCamera = Camera.main;
+        normalFOV = playerCamera.fieldOfView;
+    }
 
     protected override void Fire(Camera cam)
     {
@@ -27,4 +41,29 @@ public class Sniper : WeaponBase
             }
         }
     }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(1)) 
+        {
+            ToggleScope();
+        }
+    }
+
+    private void ToggleScope()
+    {
+        isScoped = !isScoped;
+
+        if (isScoped)
+        {
+            playerCamera.fieldOfView = scopedFOV;
+            // TODO: Show scope overlay later
+        }
+        else
+        {
+            playerCamera.fieldOfView = normalFOV;
+            // TODO: Hide scope overlay later
+        }
+    }
+    
 }

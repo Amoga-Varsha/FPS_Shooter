@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections.Generic; 
 
 public class UIManager : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class UIManager : MonoBehaviour
     public Image gunIcon;
     public Slider healthBar;
     public GameObject crosshair;
+
+    [Header("Weapon Inventory UI")]
+    public TextMeshProUGUI weaponInventoryText; 
 
     [Header("Win/Lose Screens")]
     public GameObject winScreen;
@@ -26,6 +30,7 @@ public class UIManager : MonoBehaviour
     {
         WeaponBase.OnAmmoChanged += UpdateAmmoUI;
         WeaponInventory.OnWeaponSwitched += UpdateGunIcon;
+        WeaponInventory.OnInventoryUpdated += UpdateWeaponInventoryUI; 
         PlayerHealth.OnPlayerHealthChanged += UpdateHealthBar;
         PlayerHealth.OnPlayerDeath += ShowLoseScreen;
         EnemyManager.OnAllEnemiesDead += ShowWinScreen;
@@ -35,6 +40,7 @@ public class UIManager : MonoBehaviour
     {
         WeaponBase.OnAmmoChanged -= UpdateAmmoUI;
         WeaponInventory.OnWeaponSwitched -= UpdateGunIcon;
+        WeaponInventory.OnInventoryUpdated -= UpdateWeaponInventoryUI; 
         PlayerHealth.OnPlayerHealthChanged -= UpdateHealthBar;
         PlayerHealth.OnPlayerDeath -= ShowLoseScreen;
         EnemyManager.OnAllEnemiesDead -= ShowWinScreen;
@@ -55,6 +61,20 @@ public class UIManager : MonoBehaviour
         healthBar.value = currentHealth;
     }
 
+    private void UpdateWeaponInventoryUI(List<WeaponData> weapons) 
+    {
+        
+        weaponInventoryText.text = "";
+
+        
+        int weaponIndex = 1;
+        foreach (WeaponData weapon in weapons)
+        {
+            weaponInventoryText.text += $"{weaponIndex} - {weapon.weaponName}\n"; 
+            weaponIndex++;
+        }
+    }
+
     private void ShowWinScreen()
     {
         GameplayUIActive(false);
@@ -73,5 +93,6 @@ public class UIManager : MonoBehaviour
         gunIcon.gameObject.SetActive(isActive);
         healthBar.gameObject.SetActive(isActive);
         crosshair.SetActive(isActive);
+        weaponInventoryText.gameObject.SetActive(isActive); 
     }
 }

@@ -6,6 +6,7 @@ public class WeaponPickup : MonoBehaviour
     
     private GameObject currentWeaponObject; 
 
+
     void Update()
     {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
@@ -15,7 +16,6 @@ public class WeaponPickup : MonoBehaviour
         {
             if (hit.collider.CompareTag("Weapon"))
             {
-                //Debug.Log("Weapon Detected: " + hit.collider.name);
 
                 if (Input.GetKeyDown(KeyCode.E)) 
                 {
@@ -30,7 +30,7 @@ public class WeaponPickup : MonoBehaviour
     WeaponHolder holder = weaponObject.GetComponent<WeaponHolder>();
     if (holder != null && holder.weaponData != null)
     {
-        // Add weapon to inventory
+
         WeaponInventory inventory = FindFirstObjectByType<WeaponInventory>();
         inventory.AddWeapon(holder.weaponData);
 
