@@ -64,7 +64,37 @@ PrefabInstance:
       value: FP_HuntingRifle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5137879570449212522, guid: 08ad2f8126144484faf58dfff7294296, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 08ad2f8126144484faf58dfff7294296,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6976774275380979558}
   m_SourcePrefab: {fileID: 100100000, guid: 08ad2f8126144484faf58dfff7294296, type: 3}
+--- !u!1 &2963421011279499849 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 08ad2f8126144484faf58dfff7294296,
+    type: 3}
+  m_PrefabInstance: {fileID: 2729540247111298840}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-6976774275380979558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2963421011279499849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d02eee2ab4fd02c489dd7ce8ef8c76c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireRate: 0.1
+  reloadTime: 2
+  maxAmmoInMag: 30
+  totalAmmo: 150
+  ammoPerShot: 1
+  damage: 100
+  range: 300

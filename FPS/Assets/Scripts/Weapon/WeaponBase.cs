@@ -5,7 +5,7 @@ using System;
 public abstract class WeaponBase : MonoBehaviour
 {
     [Header("Weapon Settings")]
-    public WeaponData weaponData; 
+    
     public float fireRate = 0.1f;
     public float reloadTime = 2f;
     public int maxAmmoInMag = 30;

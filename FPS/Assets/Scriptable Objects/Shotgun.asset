@@ -15,5 +15,7 @@ MonoBehaviour:
   weaponName: Shotgun
   weaponPrefab: {fileID: 6063586793600486348, guid: 62deaa04c92e073438abab56d8b24697,
     type: 3}
-  weaponAnimatorOverride: {fileID: 0}
-  weaponAvatar: {fileID: 0}
+  weaponAnimatorOverride: {fileID: 22100000, guid: 52d14817731bf084bba25c323a585645,
+    type: 2}
+  weaponAvatar: {fileID: 9000000, guid: 59ad94ce1208fc945b663aaa42d8b952, type: 3}
+  weaponIcon: {fileID: 21300000, guid: 27160cd4043789d45bbd788baea596ad, type: 3}
