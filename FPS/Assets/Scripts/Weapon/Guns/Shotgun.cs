@@ -43,6 +43,12 @@ public class Shotgun : WeaponBase
                     {
                         enemyHealth.TakeDamage(damagePerPellet);
                     }
+
+                    Destructible destructible = hit.collider.GetComponent<Destructible>();
+                    if (destructible != null)
+                    {
+                        destructible.TakeDamage();
+                    }
                 }
             }
         }

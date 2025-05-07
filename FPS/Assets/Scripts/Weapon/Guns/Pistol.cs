@@ -32,6 +32,12 @@ public class Pistol : WeaponBase
                 {
                     enemyHealth.TakeDamage(damage);
                 }
+
+                Destructible destructible = hit.collider.GetComponent<Destructible>();
+                if (destructible != null)
+                {
+                    destructible.TakeDamage();
+                }
             }
         }
     }

@@ -10415,6 +10415,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 569477750}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &576163424 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2933730780026023126, guid: 1a744bcc5da016f4db9f1a7b7a2cd28b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1356953480}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &577756141
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11765,6 +11771,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1384693226086397785, guid: b19cbee80d5280c428e866e1e45ffff7,
     type: 3}
   m_PrefabInstance: {fileID: 637008482}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &637145406 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2933730780026023126, guid: 1a744bcc5da016f4db9f1a7b7a2cd28b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1047545625}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &639594989
 PrefabInstance:
@@ -19784,6 +19796,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Water Barrel (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2933730780026023126, guid: 1a744bcc5da016f4db9f1a7b7a2cd28b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 2935862199484239672, guid: 1a744bcc5da016f4db9f1a7b7a2cd28b,
         type: 3}
       propertyPath: m_RootOrder
@@ -19842,7 +19859,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2933730780026023126, guid: 1a744bcc5da016f4db9f1a7b7a2cd28b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1047545633}
   m_SourcePrefab: {fileID: 100100000, guid: 1a744bcc5da016f4db9f1a7b7a2cd28b, type: 3}
 --- !u!4 &1047545626 stripped
 Transform:
@@ -19850,6 +19871,23 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1047545625}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1047545633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637145406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 559b81d14c6a24049a3d3a06bbc9f067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionRadius: 5
+  explosionDamage: 50
+  explosionEffectPrefab: {fileID: 1121192042590650, guid: 8fe7521bf0f673f42a3e1661497b378b,
+    type: 3}
+  explosionSound: {fileID: 8300000, guid: b45beda287e92064e8ca042aa8afd144, type: 3}
 --- !u!1001 &1055083413
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25826,6 +25864,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Water Barrel (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2933730780026023126, guid: 1a744bcc5da016f4db9f1a7b7a2cd28b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 2935862199484239672, guid: 1a744bcc5da016f4db9f1a7b7a2cd28b,
         type: 3}
       propertyPath: m_RootOrder
@@ -25884,7 +25927,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2933730780026023126, guid: 1a744bcc5da016f4db9f1a7b7a2cd28b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1356953488}
   m_SourcePrefab: {fileID: 100100000, guid: 1a744bcc5da016f4db9f1a7b7a2cd28b, type: 3}
 --- !u!4 &1356953481 stripped
 Transform:
@@ -25892,6 +25939,23 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1356953480}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1356953488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576163424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 559b81d14c6a24049a3d3a06bbc9f067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionRadius: 5
+  explosionDamage: 50
+  explosionEffectPrefab: {fileID: 1121192042590650, guid: 8fe7521bf0f673f42a3e1661497b378b,
+    type: 3}
+  explosionSound: {fileID: 8300000, guid: b45beda287e92064e8ca042aa8afd144, type: 3}
 --- !u!1001 &1369400791
 PrefabInstance:
   m_ObjectHideFlags: 0

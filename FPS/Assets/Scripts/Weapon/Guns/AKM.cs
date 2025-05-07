@@ -33,6 +33,11 @@ public class AKM : WeaponBase
                     enemyHealth.TakeDamage(damage);
                 }
 
+                Destructible destructible = hit.collider.GetComponent<Destructible>();
+                if (destructible != null)
+                {
+                    destructible.TakeDamage();
+                }
                 
             }
 
