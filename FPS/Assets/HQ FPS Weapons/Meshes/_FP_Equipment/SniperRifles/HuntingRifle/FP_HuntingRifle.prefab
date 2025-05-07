@@ -150,10 +150,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02eee2ab4fd02c489dd7ce8ef8c76c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMeleeWeapon: 0
   fireRate: 0.1
   reloadTime: 2
-  maxAmmoInMag: 30
-  totalAmmo: 150
+  maxAmmoInMag: 5
+  totalAmmo: 15
   ammoPerShot: 1
   damage: 100
   range: 300

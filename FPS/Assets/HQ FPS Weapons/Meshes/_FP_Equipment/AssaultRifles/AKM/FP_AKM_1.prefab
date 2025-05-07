@@ -145,12 +145,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 268b5d233ffa41f4a983b32bb632a4b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMeleeWeapon: 0
   fireRate: 0.2
   reloadTime: 2
-  maxAmmoInMag: 30
-  totalAmmo: 150
+  maxAmmoInMag: 12
+  totalAmmo: 36
   ammoPerShot: 1
-  damage: 10
+  damage: 40
   range: 100
   audioSource: {fileID: -6242266789287763201}
   fireSound: {fileID: 8300000, guid: 16d4c9b048a160e4d9eb4bafa3f5673a, type: 3}

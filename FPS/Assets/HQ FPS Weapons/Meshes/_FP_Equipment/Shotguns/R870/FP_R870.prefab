@@ -94,10 +94,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4c944d16478bb24bb6cda1c7b2ae873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMeleeWeapon: 0
   fireRate: 0.1
   reloadTime: 2
-  maxAmmoInMag: 30
-  totalAmmo: 150
+  maxAmmoInMag: 5
+  totalAmmo: 20
   ammoPerShot: 1
   damagePerPellet: 10
   pelletCount: 8
