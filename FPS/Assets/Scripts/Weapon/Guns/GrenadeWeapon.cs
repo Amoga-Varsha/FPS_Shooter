@@ -10,6 +10,11 @@ public class GrenadeWeapon : WeaponBase
     public float explosionDelay = 5f; 
     public float throwDelay = 2f; 
     public AudioClip explosionSound; 
+    public GameObject explosionParticlePrefab;
+
+    [Header("Explosion Damage Settings")]
+    public float explosionRadius = 5f;
+    public int explosionDamage = 50;        
 
     private bool isThrowing = false;
 
@@ -54,6 +59,8 @@ public class GrenadeWeapon : WeaponBase
             rb.AddForce(cam.transform.forward * throwForce, ForceMode.VelocityChange);
         }
 
+        
+
         StartCoroutine(HandleExplosion(grenade));
 
         isThrowing = false;
@@ -69,8 +76,31 @@ public class GrenadeWeapon : WeaponBase
             {
                 AudioSource.PlayClipAtPoint(explosionSound, grenade.transform.position);
             }
-            Destroy(grenade);
+
+            if (explosionParticlePrefab != null)
+            {
+                Instantiate(explosionParticlePrefab, grenade.transform.position, Quaternion.identity);
+            }
+
+            Collider[] colliders = Physics.OverlapSphere(grenade.transform.position, explosionRadius);
+
+            foreach (Collider nearbyObject in colliders)
+            {
+                EnemyAI enemy = nearbyObject.GetComponent<EnemyAI>();
+                if (enemy != null)
+                {
+                    enemy.TakeDamage(explosionDamage);
+                }
+
+                PlayerHealth playerHealth = nearbyObject.GetComponent<PlayerHealth>();
+                if (playerHealth != null)
+                {
+                    playerHealth.TakeDamage(explosionDamage);
+                }
+            }
         }
+
+        Destroy(grenade);
     }
 
     private void EquipUnarmed()

@@ -5,8 +5,6 @@ public class AKM : WeaponBase
     [Header("AKM Settings")]
     public int damage = 25;
     public float range = 100f;
-    //public ParticleSystem muzzleFlash;
-    //public GameObject impactEffect;
 
     public AudioSource audioSource; 
     public AudioClip fireSound;
@@ -17,9 +15,6 @@ public class AKM : WeaponBase
         {
             audioSource.PlayOneShot(fireSound);
         }
-
-        // if (muzzleFlash != null)
-        //     muzzleFlash.Play();
 
         if (cam == null)
         {
@@ -39,13 +34,8 @@ public class AKM : WeaponBase
                 }
 
                 
-                
             }
 
-            // if (impactEffect != null)
-            // {
-            //     Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-            // }
         }
     }
 }

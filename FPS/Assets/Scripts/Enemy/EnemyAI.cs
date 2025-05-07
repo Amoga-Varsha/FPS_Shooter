@@ -89,7 +89,7 @@ public class EnemyAI : MonoBehaviour
             animator.SetTrigger("Shoot"); 
         }
 
-        transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z)); // Look horizontally at player
+        transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z)); 
 
         if (distanceToPlayer <= shootingRange && Time.time >= nextFireTime)
         {
@@ -120,13 +120,8 @@ public class EnemyAI : MonoBehaviour
 
     void Die()
     {
-        // if (animator != null)
-        // {
-        //     animator.SetTrigger("Die");
-        // }
-
         enemydead?.Invoke();
         agent.enabled = false; 
-        Destroy(gameObject, 3f); 
+        Destroy(gameObject, 1f); 
     }
 }

@@ -102,10 +102,14 @@ MonoBehaviour:
   ammoPerShot: 1
   grenadePrefab: {fileID: 4799166214128116723, guid: fbce7a20e41d133479ffd5e8b4a8ce5f,
     type: 3}
-  throwPoint: {fileID: 0}
   throwForce: 10
   explosionDelay: 5
+  throwDelay: 2
   explosionSound: {fileID: 8300000, guid: b45beda287e92064e8ca042aa8afd144, type: 3}
+  explosionParticlePrefab: {fileID: 1121192042590650, guid: 8fe7521bf0f673f42a3e1661497b378b,
+    type: 3}
+  explosionRadius: 5
+  explosionDamage: 50
 --- !u!82 &2750024991888383576
 AudioSource:
   m_ObjectHideFlags: 0

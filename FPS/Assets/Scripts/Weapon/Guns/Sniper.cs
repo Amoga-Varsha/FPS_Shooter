@@ -65,12 +65,10 @@ public class SniperRifle : WeaponBase
         if (isScoped)
         {
             playerCamera.fieldOfView = scopedFOV;
-            // TODO: Show scope overlay later
         }
         else
         {
             playerCamera.fieldOfView = normalFOV;
-            // TODO: Hide scope overlay later
         }
     }
     
