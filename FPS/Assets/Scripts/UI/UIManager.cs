@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -13,12 +13,13 @@ public class UIManager : MonoBehaviour
     public Image gunIcon;
     public Slider healthBar;
     public GameObject crosshair;
+    public GameObject equipPrompt; // 👈 NEW FIELD
 
     [Header("Weapon Inventory UI")]
     public TextMeshProUGUI weaponInventoryText;
 
     [Header("Pause Menu")]
-    public GameObject pauseMenu; 
+    public GameObject pauseMenu;
     public Button resumeButton;
     public Button restartButton;
     public Button quitButton;
@@ -54,7 +55,6 @@ public class UIManager : MonoBehaviour
 
         winRestartButton.onClick.AddListener(RestartGame);
         winQuitButton.onClick.AddListener(QuitGame);
-
         loseRestartButton.onClick.AddListener(RestartGame);
         loseQuitButton.onClick.AddListener(QuitGame);
     }
@@ -95,22 +95,35 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ShowEquipPrompt(bool show, string weaponName = "")
+    {
+        if (equipPrompt != null)
+        {
+            equipPrompt.SetActive(show);
+            if (show)
+            {
+                TextMeshProUGUI textComponent = equipPrompt.GetComponent<TextMeshProUGUI>();
+                if (textComponent != null)
+                    textComponent.text = $"Press E to Equip {weaponName}";
+            }
+        }
+    }
+
+
     private void ShowWinScreen()
     {
         GameplayUIActive(false);
         winScreen.SetActive(true);
-        Time.timeScale = 0; 
-        PlayerContoller playerController = FindFirstObjectByType<PlayerContoller>();
-        playerController.UnlockCursor(); 
+        Time.timeScale = 0;
+        FindFirstObjectByType<PlayerContoller>()?.UnlockCursor();
     }
 
     private void ShowLoseScreen()
     {
         GameplayUIActive(false);
         loseScreen.SetActive(true);
-        Time.timeScale = 0; 
-        PlayerContoller playerController = FindFirstObjectByType<PlayerContoller>();
-        playerController.UnlockCursor(); 
+        Time.timeScale = 0;
+        FindFirstObjectByType<PlayerContoller>()?.UnlockCursor();
     }
 
     private void GameplayUIActive(bool isActive)
@@ -126,14 +139,8 @@ public class UIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isGamePaused)
-            {
-                ResumeGame(); 
-            }
-            else
-            {
-                PauseGame(); 
-            }
+            if (isGamePaused) ResumeGame();
+            else PauseGame();
         }
     }
 
@@ -141,29 +148,27 @@ public class UIManager : MonoBehaviour
     {
         isGamePaused = true;
         pauseMenu.SetActive(true);
-        Time.timeScale = 0; 
-        PlayerContoller playerController = FindFirstObjectByType<PlayerContoller>();
-        playerController.UnlockCursor(); 
+        Time.timeScale = 0;
+        FindFirstObjectByType<PlayerContoller>()?.UnlockCursor();
     }
 
     private void ResumeGame()
     {
         isGamePaused = false;
         pauseMenu.SetActive(false);
-        Time.timeScale = 1; 
-        PlayerContoller playerController = FindFirstObjectByType<PlayerContoller>();
-        playerController.LockCursor(); 
+        Time.timeScale = 1;
+        FindFirstObjectByType<PlayerContoller>()?.LockCursor();
     }
 
     private void RestartGame()
     {
-        Time.timeScale = 1; 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void QuitGame()
     {
-        Time.timeScale = 1; 
-        Application.Quit(); 
+        Time.timeScale = 1;
+        Application.Quit();
     }
 }

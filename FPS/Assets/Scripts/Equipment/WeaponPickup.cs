@@ -4,13 +4,33 @@ public class WeaponPickup : MonoBehaviour
 {
     public float pickupRange = 2f;
 
-    void Update()
+    private void Update()
     {
+        HandleWeaponDetection();
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             TryPickupWeapon();
         }
     }
+
+    void HandleWeaponDetection()
+    {
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, pickupRange) && hit.collider.CompareTag("Weapon"))
+        {
+            WeaponHolder holder = hit.collider.GetComponent<WeaponHolder>();
+            if (holder != null && holder.weaponData != null)
+            {
+                string weaponName = holder.weaponData.weaponName;
+                UIManager.Instance?.ShowEquipPrompt(true, weaponName);
+                return;
+            }
+        }
+        UIManager.Instance?.ShowEquipPrompt(false);
+    }
+
 
     void TryPickupWeapon()
     {
