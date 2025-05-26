@@ -57,7 +57,6 @@ public class GrenadeWeapon : WeaponBase
         rb.AddForce(cam.transform.forward * throwForce, ForceMode.VelocityChange);
     }
 
-    // Unarm AFTER spawning and throwing the grenade
     EquipUnarmed();
 
     isThrowing = false;

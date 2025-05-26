@@ -18,15 +18,12 @@ public class GrenadeBehaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(explosionDelay);
 
-        // Play sound
         if (explosionSound != null)
             AudioSource.PlayClipAtPoint(explosionSound, transform.position);
 
-        // Play explosion effect
         if (explosionParticlePrefab != null)
             Instantiate(explosionParticlePrefab, transform.position, Quaternion.identity);
 
-        // Deal damage
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach (Collider nearbyObject in colliders)
         {
@@ -37,7 +34,6 @@ public class GrenadeBehaviour : MonoBehaviour
                 playerHealth.TakeDamage(explosionDamage);
         }
 
-        // Destroy grenade
         Destroy(gameObject);
     }
 }
