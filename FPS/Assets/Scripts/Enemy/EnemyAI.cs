@@ -122,6 +122,6 @@ public class EnemyAI : MonoBehaviour
     {
         enemydead?.Invoke();
         agent.enabled = false; 
-        Destroy(gameObject, 1f); 
+        Destroy(gameObject); 
     }
 }

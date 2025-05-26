@@ -25033,6 +25033,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1309698757}
+    - targetCorrespondingSourceObject: {fileID: 2933730780026023126, guid: 1a744bcc5da016f4db9f1a7b7a2cd28b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1309698764}
   m_SourcePrefab: {fileID: 100100000, guid: 1a744bcc5da016f4db9f1a7b7a2cd28b, type: 3}
 --- !u!4 &1309698750 stripped
 Transform:
@@ -25056,6 +25060,23 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &1309698764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092933969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 559b81d14c6a24049a3d3a06bbc9f067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionRadius: 5
+  explosionDamage: 50
+  explosionEffectPrefab: {fileID: 1121192042590650, guid: 8fe7521bf0f673f42a3e1661497b378b,
+    type: 3}
+  explosionSound: {fileID: 8300000, guid: b45beda287e92064e8ca042aa8afd144, type: 3}
 --- !u!1001 &1310600416
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37782,6 +37803,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1985132245}
+    - targetCorrespondingSourceObject: {fileID: 2933730780026023126, guid: 1a744bcc5da016f4db9f1a7b7a2cd28b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1985132252}
   m_SourcePrefab: {fileID: 100100000, guid: 1a744bcc5da016f4db9f1a7b7a2cd28b, type: 3}
 --- !u!4 &1985132243 stripped
 Transform:
@@ -37811,6 +37836,23 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &1985132252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985132244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 559b81d14c6a24049a3d3a06bbc9f067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionRadius: 5
+  explosionDamage: 50
+  explosionEffectPrefab: {fileID: 1121192042590650, guid: 8fe7521bf0f673f42a3e1661497b378b,
+    type: 3}
+  explosionSound: {fileID: 8300000, guid: b45beda287e92064e8ca042aa8afd144, type: 3}
 --- !u!4 &1988133874 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4717514962733208, guid: 20ce86f0ddf7cd1438b1f6d3006b3862,
@@ -46465,9 +46507,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3518442642812445701, guid: 20ce86f0ddf7cd1438b1f6d3006b3862,
         type: 3}
+      propertyPath: gravity
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3518442642812445701, guid: 20ce86f0ddf7cd1438b1f6d3006b3862,
+        type: 3}
+      propertyPath: walkSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3518442642812445701, guid: 20ce86f0ddf7cd1438b1f6d3006b3862,
+        type: 3}
+      propertyPath: jumpHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3518442642812445701, guid: 20ce86f0ddf7cd1438b1f6d3006b3862,
+        type: 3}
+      propertyPath: crouchSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3518442642812445701, guid: 20ce86f0ddf7cd1438b1f6d3006b3862,
+        type: 3}
+      propertyPath: sprintSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3518442642812445701, guid: 20ce86f0ddf7cd1438b1f6d3006b3862,
+        type: 3}
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 1988133874}
+    - target: {fileID: 3518442642812445701, guid: 20ce86f0ddf7cd1438b1f6d3006b3862,
+        type: 3}
+      propertyPath: mouseSensitivity
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3982533618724021581, guid: 20ce86f0ddf7cd1438b1f6d3006b3862,
         type: 3}
       propertyPath: m_Name

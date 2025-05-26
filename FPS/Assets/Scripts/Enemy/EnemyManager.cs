@@ -8,10 +8,9 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-    totalEnemies = FindObjectsByType<EnemyAI>(FindObjectsSortMode.None).Length;
-    EnemyAI.enemydead +=EnemyDied;
+        totalEnemies = FindObjectsByType<EnemyAI>(FindObjectsSortMode.None).Length;
+        EnemyAI.enemydead +=EnemyDied;
     }
-
 
     public void EnemyDied()
     {
