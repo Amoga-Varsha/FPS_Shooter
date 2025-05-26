@@ -60,6 +60,16 @@ public class WeaponInventory : MonoBehaviour
         return equippedWeapon;
     }
 
+    public void RemoveWeapon(WeaponData weapon)
+    {
+        if (collectedWeapons.Contains(weapon))
+        {
+            collectedWeapons.Remove(weapon);
+            OnInventoryUpdated?.Invoke(collectedWeapons);
+        }
+    }
+
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1)) EquipWeapon(0);

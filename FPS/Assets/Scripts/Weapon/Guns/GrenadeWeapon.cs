@@ -15,7 +15,6 @@ public class GrenadeWeapon : WeaponBase
     [Header("Explosion Damage Settings")]
     public float explosionRadius = 5f;
     public int explosionDamage = 50;        
-
     private bool isThrowing = false;
 
     protected override void Start()
@@ -108,6 +107,14 @@ public class GrenadeWeapon : WeaponBase
         WeaponInventory inventory = FindFirstObjectByType<WeaponInventory>();
         if (inventory != null)
         {
+            
+            WeaponData myData = GetComponent<WeaponDataReference>()?.weaponData;
+
+            if (myData != null)
+            {
+                inventory.RemoveWeapon(myData);
+            }
+
             inventory.EquipWeapon(0); 
         }
         else
@@ -115,6 +122,7 @@ public class GrenadeWeapon : WeaponBase
             Debug.LogWarning("WeaponInventory not found! Cannot switch to Unarmed.");
         }
     }
+
 
     public override void StartReload()
     {

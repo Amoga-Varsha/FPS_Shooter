@@ -148,8 +148,8 @@ MonoBehaviour:
   isMeleeWeapon: 0
   fireRate: 0.2
   reloadTime: 2
-  maxAmmoInMag: 12
-  totalAmmo: 36
+  maxAmmoInMag: 25
+  totalAmmo: 75
   ammoPerShot: 1
   damage: 40
   range: 100
