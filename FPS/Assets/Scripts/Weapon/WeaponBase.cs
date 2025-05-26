@@ -122,7 +122,7 @@ public abstract class WeaponBase : MonoBehaviour
 
     public void TryFireWithAnimation(Camera cam, PlayerAnimationController animationController)
     {
-        if (isMeleeWeapon || isReloading || !canFire || currentAmmoInMag <= 0)
+        if (isReloading || !canFire || currentAmmoInMag <= 0)
         {
             if (currentAmmoInMag <= 0)
                 Debug.Log("[WeaponBase] Can't fire: No Ammo! Reload needed.");
