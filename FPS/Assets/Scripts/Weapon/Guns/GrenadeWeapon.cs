@@ -108,7 +108,7 @@ public class GrenadeWeapon : WeaponBase
         if (inventory != null)
         {
             
-            WeaponData myData = GetComponent<WeaponDataReference>()?.weaponData;
+            WeaponData myData = GetComponent<WeaponHolder>()?.weaponData;
 
             if (myData != null)
             {
