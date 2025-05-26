@@ -56,11 +56,14 @@ public abstract class WeaponBase : MonoBehaviour
         StartCoroutine(FireCoroutine(cam));
     }
 
-    private IEnumerator FireCoroutine(Camera cam)
+    private IEnumerator FireCoroutine(Camera cam, PlayerAnimationController animationController = null)
     {
         canFire = false;
 
         Fire(cam);
+
+        if (animationController != null)
+            animationController.PlayShoot();
 
         if (!isMeleeWeapon)
         {
@@ -69,9 +72,9 @@ public abstract class WeaponBase : MonoBehaviour
         }
 
         yield return new WaitForSeconds(fireRate);
-
         canFire = true;
     }
+
 
     public virtual void StartReload()
     {
@@ -116,6 +119,18 @@ public abstract class WeaponBase : MonoBehaviour
     }
 
     protected abstract void Fire(Camera cam);
+
+    public void TryFireWithAnimation(Camera cam, PlayerAnimationController animationController)
+    {
+        if (isMeleeWeapon || isReloading || !canFire || currentAmmoInMag <= 0)
+        {
+            if (currentAmmoInMag <= 0)
+                Debug.Log("[WeaponBase] Can't fire: No Ammo! Reload needed.");
+            return;
+        }
+
+        StartCoroutine(FireCoroutine(cam, animationController));
+    }
 
     protected void NotifyAmmoChanged()
     {

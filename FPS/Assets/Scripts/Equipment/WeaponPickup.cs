@@ -34,7 +34,6 @@ public class WeaponPickup : MonoBehaviour
                 }
 
                 inventory.AddWeapon(holder.weaponData);
-                //inventory.SetEquippedWeapon(holder.weaponData.weaponPrefab.GetComponent<WeaponBase>());
 
                 Destroy(hit.collider.gameObject); 
             }

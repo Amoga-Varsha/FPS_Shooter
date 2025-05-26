@@ -96,7 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMeleeWeapon: 0
   fireRate: 1
-  reloadTime: 2
+  reloadTime: 0.5
   maxAmmoInMag: 5
   totalAmmo: 20
   ammoPerShot: 1
