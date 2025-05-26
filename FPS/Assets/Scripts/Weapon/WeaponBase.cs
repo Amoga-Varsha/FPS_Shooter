@@ -5,7 +5,7 @@ using System;
 public abstract class WeaponBase : MonoBehaviour
 {
     [Header("Weapon Settings")]
-    public bool isMeleeWeapon = false; 
+    public bool isMeleeWeapon = false;
     public float fireRate = 0.1f;
     public float reloadTime = 2f;
     public int maxAmmoInMag = 30;
@@ -15,9 +15,10 @@ public abstract class WeaponBase : MonoBehaviour
     protected int currentAmmoInMag;
     protected bool canFire = true;
     protected bool isReloading = false;
-    private Coroutine reloadCoroutine; 
+    private Coroutine reloadCoroutine;
 
     public static event Action<int, int> OnAmmoChanged;
+
 
     protected virtual void Start()
     {
@@ -61,7 +62,7 @@ public abstract class WeaponBase : MonoBehaviour
 
         Fire(cam);
 
-        if (!isMeleeWeapon) 
+        if (!isMeleeWeapon)
         {
             currentAmmoInMag -= ammoPerShot;
             NotifyAmmoChanged();
@@ -74,7 +75,7 @@ public abstract class WeaponBase : MonoBehaviour
 
     public virtual void StartReload()
     {
-        if (isMeleeWeapon) return; 
+        if (isMeleeWeapon) return;
 
         if (isReloading || currentAmmoInMag == maxAmmoInMag || totalAmmo <= 0)
         {
@@ -120,4 +121,10 @@ public abstract class WeaponBase : MonoBehaviour
     {
         OnAmmoChanged?.Invoke(currentAmmoInMag, totalAmmo);
     }
+    
+        public void ForceUpdateAmmoUI()
+    {
+        NotifyAmmoChanged();
+    }
+
 }

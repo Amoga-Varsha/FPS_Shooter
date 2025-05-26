@@ -51,6 +51,8 @@ public class WeaponEquipHandler : MonoBehaviour
             if (inventory != null)
             {
                 inventory.SetEquippedWeapon(weaponBase);
+                weaponBase.ForceUpdateAmmoUI();
+
             }
         }
         else
