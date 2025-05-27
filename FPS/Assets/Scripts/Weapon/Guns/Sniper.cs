@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class SniperRifle : WeaponBase
 {
@@ -21,13 +22,44 @@ public class SniperRifle : WeaponBase
     public Transform muzzlePoint;
     public TrailRenderer bulletTrailPrefab;
 
+    [Header("UI")]
+    public RawImage scopeOverlay; 
+
     protected override void Start()
     {
         base.Start();
         playerCamera = Camera.main;
         normalFOV = playerCamera.fieldOfView;
+
+        if (scopeOverlay != null)
+            scopeOverlay.enabled = false; 
     }
 
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            ToggleScope();
+        }
+    }
+
+    private void ToggleScope()
+    {
+        isScoped = !isScoped;
+
+        if (isScoped)
+        {
+            playerCamera.fieldOfView = scopedFOV;
+            if (scopeOverlay != null)
+                scopeOverlay.enabled = true;
+        }
+        else
+        {
+            playerCamera.fieldOfView = normalFOV;
+            if (scopeOverlay != null)
+                scopeOverlay.enabled = false;
+        }
+    }
     protected override void Fire(Camera cam)
     {
         if (audioSource != null && fireSound != null)
@@ -80,7 +112,6 @@ public class SniperRifle : WeaponBase
     private IEnumerator AnimateTrail(TrailRenderer trail, Vector3 targetPoint)
     {
         float bulletSpeed = 150f;
-        Vector3 start = trail.transform.position;
 
         while (Vector3.Distance(trail.transform.position, targetPoint) > 0.1f)
         {
@@ -90,28 +121,5 @@ public class SniperRifle : WeaponBase
 
         trail.transform.position = targetPoint;
         Destroy(trail.gameObject, trail.time);
-    }
-
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            ToggleScope();
-        }
-    }
-
-    private void ToggleScope()
-    {
-        isScoped = !isScoped;
-
-        if (isScoped)
-        {
-            playerCamera.fieldOfView = scopedFOV;
-        }
-        else
-        {
-            playerCamera.fieldOfView = normalFOV;
-        }
     }
 }

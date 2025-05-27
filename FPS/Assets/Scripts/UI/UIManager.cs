@@ -34,8 +34,6 @@ public class UIManager : MonoBehaviour
     public Button loseQuitButton;
 
     private bool isGamePaused = false;
-
-    // Blinking logic
     private Coroutine blinkCoroutine;
     private Color defaultAmmoColor;
 
