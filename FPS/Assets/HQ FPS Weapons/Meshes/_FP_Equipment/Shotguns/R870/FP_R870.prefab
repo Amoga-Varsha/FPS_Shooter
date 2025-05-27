@@ -147,6 +147,9 @@ MonoBehaviour:
   range: 30
   audioSource: {fileID: 7582931611801617411}
   fireSound: {fileID: 8300000, guid: 33528e1dbc0d6844a8788bae6d03de22, type: 3}
+  trailPrefab: {fileID: 7835845663288227040, guid: 91a4bcb8705bf2f46a62e7da62c3d68e,
+    type: 3}
+  muzzlePoint: {fileID: 1203056212902015479}
 --- !u!82 &7582931611801617411
 AudioSource:
   m_ObjectHideFlags: 0

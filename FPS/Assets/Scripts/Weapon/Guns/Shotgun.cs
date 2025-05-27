@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Shotgun : WeaponBase
 {
@@ -8,8 +9,13 @@ public class Shotgun : WeaponBase
     public float spreadAngle = 5f;
     public float range = 30f;
 
+    [Header("Audio")]
     public AudioSource audioSource; 
     public AudioClip fireSound;
+
+    [Header("Effects")]
+    public TrailRenderer trailPrefab;
+    public Transform muzzlePoint;
 
     protected override void Fire(Camera cam)
     {
@@ -30,10 +36,11 @@ public class Shotgun : WeaponBase
             spreadDirection += new Vector3(
                 Random.Range(-spreadAngle, spreadAngle),
                 Random.Range(-spreadAngle, spreadAngle),
-                0
-            ) * 0.01f; 
+                0f
+            ) * 0.01f;
 
-            if (Physics.Raycast(cam.transform.position, spreadDirection.normalized, out RaycastHit hit, range))
+            Vector3 rayOrigin = cam.transform.position;
+            if (Physics.Raycast(rayOrigin, spreadDirection.normalized, out RaycastHit hit, range))
             {
                 if (hit.transform.CompareTag("Enemy"))
                 {
@@ -50,7 +57,28 @@ public class Shotgun : WeaponBase
                         destructible.TakeDamage();
                     }
                 }
+
+                if (trailPrefab != null && muzzlePoint != null)
+                {
+                    TrailRenderer trail = Instantiate(trailPrefab, muzzlePoint.position, Quaternion.identity);
+                    StartCoroutine(AnimateTrail(trail, hit.point));
+                }
             }
         }
+    }
+
+    private IEnumerator AnimateTrail(TrailRenderer trail, Vector3 targetPoint)
+    {
+        float bulletSpeed = 150f;
+        Vector3 start = trail.transform.position;
+
+        while (Vector3.Distance(trail.transform.position, targetPoint) > 0.1f)
+        {
+            trail.transform.position = Vector3.MoveTowards(trail.transform.position, targetPoint, bulletSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        trail.transform.position = targetPoint;
+        Destroy(trail.gameObject, trail.time);
     }
 }
