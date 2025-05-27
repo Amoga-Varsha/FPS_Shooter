@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
@@ -13,7 +14,7 @@ public class UIManager : MonoBehaviour
     public Image gunIcon;
     public Slider healthBar;
     public GameObject crosshair;
-    public GameObject equipPrompt; // 👈 NEW FIELD
+    public GameObject equipPrompt;
 
     [Header("Weapon Inventory UI")]
     public TextMeshProUGUI weaponInventoryText;
@@ -34,10 +35,20 @@ public class UIManager : MonoBehaviour
 
     private bool isGamePaused = false;
 
+    // Blinking logic
+    private Coroutine blinkCoroutine;
+    private Color defaultAmmoColor;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
+
+    private void Start()
+    {
+        if (ammoText != null)
+            defaultAmmoColor = ammoText.color;
     }
 
     private void OnEnable()
@@ -52,7 +63,6 @@ public class UIManager : MonoBehaviour
         resumeButton.onClick.AddListener(ResumeGame);
         restartButton.onClick.AddListener(RestartGame);
         quitButton.onClick.AddListener(QuitGame);
-
         winRestartButton.onClick.AddListener(RestartGame);
         winQuitButton.onClick.AddListener(QuitGame);
         loseRestartButton.onClick.AddListener(RestartGame);
@@ -72,6 +82,32 @@ public class UIManager : MonoBehaviour
     private void UpdateAmmoUI(int currentAmmo, int totalAmmo)
     {
         ammoText.text = $"{currentAmmo}/{totalAmmo}";
+
+        if (currentAmmo == 0)
+        {
+            if (blinkCoroutine == null)
+                blinkCoroutine = StartCoroutine(BlinkAmmoText());
+        }
+        else
+        {
+            if (blinkCoroutine != null)
+            {
+                StopCoroutine(blinkCoroutine);
+                blinkCoroutine = null;
+                ammoText.color = defaultAmmoColor;
+            }
+        }
+    }
+
+    private IEnumerator BlinkAmmoText()
+    {
+        while (true)
+        {
+            ammoText.color = Color.red;
+            yield return new WaitForSeconds(0.25f);
+            ammoText.color = defaultAmmoColor;
+            yield return new WaitForSeconds(0.25f);
+        }
     }
 
     private void UpdateGunIcon(Sprite icon)
@@ -108,7 +144,6 @@ public class UIManager : MonoBehaviour
             }
         }
     }
-
 
     private void ShowWinScreen()
     {
